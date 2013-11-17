@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.locals.pretty = true;
 
 app.locals.aerobatic = {
-  apiKey: process.env.AEROBATIC_API_KEY,
+  clientId: process.env.AEROBATIC_CLIENT_ID,
   airportUrl: "http://localhost:3000"
 };
 
