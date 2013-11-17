@@ -7,7 +7,7 @@ module.exports = function(echoNest) {
     homePage: function(req, res, next){
       echoNest('artist/top_hottt').get({}, function (err, json) {
         if (err) {
-          console.error(JSON.stringify(err));
+          console.error("Error from echonest" + JSON.stringify(err));
           return next(err);          
         }
 
