@@ -1,0 +1,16 @@
+{
+  "name": "aerobatic-barnstormer",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.2.5",
+    "jade": "*",
+    "stylus": "*",
+    "echojs": "~0.1.4",
+    "underscore.string": "~2.3.3",
+    "lodash": "~2.3.0"
+  }
+}

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 #{artist.name}
+
+  h3 Reviews
+  ul(data-artist-reviews)
+    each review in artist.reviews
+      li
+        h4 
+          a(href="#{review.url}") #{review.title}
+        p #{review.summary}
+
+  h3 Images
+  ul(data-artist-images)
+    each image in artist.images
+      li 
+        img(src="#{image.url}")

@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h3 Today's Hot Artists
+  ul
+    each artist in hotArtists
+      li 
+        a(href="/artists/#{urlify(artist.name)}/#{artist.id}") #{artist.name}  
