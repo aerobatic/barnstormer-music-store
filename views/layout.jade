@@ -5,11 +5,18 @@ html
     title= title
     //- link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
     script.
-      var __aerobatic__ = {
-        pageId: !{JSON.stringify(pageId)}
-      };
+      (function() {
+        window.__aerobatic__ = {
+          pageId: !{JSON.stringify(pageId)}
+        };
 
-    script(src="#{aerobatic.airportUrl}/#{aerobatic.clientId}/cockpit")
+        var cockpitUrl = "!{aerobatic.airportUrl}/!{aerobatic.clientId}/cockpit";
+        if (window.location.search.indexOf("__simulator__") !== -1)
+          cockpitUrl += "?simulator=1";
+
+        document.write('\x3Cscript src="' + cockpitUrl + '">\x3C/script>');
+      })();
+
     block head
   body
     h2 Barnstormer Music
