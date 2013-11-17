@@ -6,6 +6,9 @@ module.exports = function(echoNest) {
   return {
     homePage: function(req, res, next){
       echoNest('artist/top_hottt').get({}, function (err, json) {
+        if (err)
+          return next(err);
+
         res.render('index', { 
           title: 'Barnstormer Music Store', 
           pageId: "home_page",
