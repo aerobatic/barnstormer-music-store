@@ -12,7 +12,7 @@ var express = require('express')
 var app = express();
 
 var echoNest = echojs({
-  key: process.env.ECHO_NEST_API_KEY
+  key: process.env.ECHONEST_API_KEY
 });
 
 var routes = require('./routes')(echoNest);
