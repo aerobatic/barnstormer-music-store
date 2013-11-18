@@ -7,14 +7,12 @@ html
     script.
       (function() {
         window.__aerobatic__ = {
-          pageId: !{JSON.stringify(pageId)}
+          pageId: !{JSON.stringify(pageId)},
+          clientId: !{JSON.stringify(aerobatic.clientId)},
+          airportUrl: !{JSON.stringify(aerobatic.airportUrl)}
         };
 
-        var cockpitUrl = "!{aerobatic.airportUrl}/!{aerobatic.clientId}/cockpit";
-        if (window.location.search.indexOf("__simulator__") !== -1)
-          cockpitUrl += "?simulator=1";
-
-        document.write('\x3Cscript src="' + cockpitUrl + '">\x3C/script>');
+        document.write('\x3Cscript src="' + __aerobatic__.airportUrl + '/javascripts/cockpit.js">\x3C/script>');
       })();
 
     block head
