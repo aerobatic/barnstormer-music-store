@@ -11,7 +11,7 @@ module.exports = function(echoNest) {
 
         res.render('index', { 
           title: 'Barnstormer Music Store', 
-          pageId: "home_page",
+          pageId: "homePage",
           hotArtists: json.response.artists 
         });
       });
@@ -29,7 +29,7 @@ module.exports = function(echoNest) {
         var artist = json.response.artist;
         res.render('artist', {
           title: 'Barnstormer Music - ' + artist.name,
-          pageId: 'artist_detail',
+          pageId: 'artistDetail',
           artist: artist
         });
       });
