@@ -5,15 +5,15 @@ html
     title= title
     //- link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
     script.
-      (function() {
-        window.__aerobatic__ = {
+      window.aerobatic = {
+        config: {
           pageId: !{JSON.stringify(pageId)},
           clientId: !{JSON.stringify(aerobatic.clientId)},
           airportUrl: !{JSON.stringify(aerobatic.airportUrl)}
-        };
+        }
+      };
 
-        document.write('\x3Cscript src="' + __aerobatic__.airportUrl + '/javascripts/cockpit.js">\x3C/script>');
-      })();
+    script(data-main="#{aerobatic.airportUrl}/cockpit2", src="#{aerobatic.airportUrl}/require.js")
 
     block head
   body
