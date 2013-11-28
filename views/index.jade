@@ -1,9 +1,8 @@
 extends layout
 
 block content
-  .aero-hide
-    h3 Today's Hot Artists
-    ul(data-hot-artists)
-      each artist in hotArtists
-        li 
-          a(data-id="#{artist.id}" href="/artists/#{urlify(artist.name)}/#{artist.id}") #{artist.name}  
+  h3 Today's Hot Artists
+  ul(data-hot-artists)
+    each artist in hotArtists
+      li 
+        a(data-id="#{artist.id}" href="/artists/#{urlify(artist.name)}/#{artist.id}") #{artist.name}
