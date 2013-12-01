@@ -9,12 +9,12 @@ html
     script.
       window.__config__ = {
         pageId: !{JSON.stringify(pageId)},
-        clientId: !{JSON.stringify(aerobatic.clientId)},
+        appId: !{JSON.stringify(aerobatic.appId)},
         airportUrl: !{JSON.stringify(aerobatic.airportUrl)}
         //- Any other application specific config settings can be specified here.
       };
 
-    script(data-main="#{aerobatic.airportUrl}/cockpit2", src="#{aerobatic.airportUrl}/require.js")
+    script(data-main="#{aerobatic.airportUrl}/cockpit", src="#{aerobatic.airportUrl}/require.js")
 
     block head
   body
