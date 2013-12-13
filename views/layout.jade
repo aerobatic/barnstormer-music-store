@@ -3,7 +3,9 @@ html
   head
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title= title
-    //- link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css')
+    style
+      .aero-hide { display: none; }
+      
     script.
       window.__config__ = {
         pageId: !{JSON.stringify(pageId)},
@@ -12,14 +14,12 @@ html
         //- Any other application specific config settings can be specified here.
       };
 
-    script(data-main="#{aerobatic.airportUrl}/cockpit2", src="#{aerobatic.airportUrl}/require.js")
+    script(data-main="#{aerobatic.airportUrl}/cockpit", src="#{aerobatic.airportUrl}/require.js")
 
     block head
   body
-    h2 Barnstormer Music
-    form(method="get", action="/search")
-      input(type="text")
-      input(type="submit", value="Search")
+    .aero-hide
+      h2 Barnstormer Music
 
-    block content
+      block content
 

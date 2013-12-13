@@ -2,7 +2,7 @@ extends layout
 
 block content
   h3 Today's Hot Artists
-  ul
+  ul(data-hot-artists)
     each artist in hotArtists
       li 
-        a(href="/artists/#{urlify(artist.name)}/#{artist.id}") #{artist.name}  
+        a(data-id="#{artist.id}" href="/artists/#{urlify(artist.name)}/#{artist.id}") #{artist.name}
