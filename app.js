@@ -37,7 +37,6 @@ app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.locals.pretty = true;
-// app.locals.airportUrl = process.env.AEROBATIC_AIRPORT_URL || "http://localhost:7777";
 
 app.locals({
   aerobaticAirportUrl: process.env.AEROBATIC_AIRPORT_URL || "http://localhost:7777",
