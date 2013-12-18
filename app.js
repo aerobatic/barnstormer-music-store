@@ -24,18 +24,23 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.methodOverride());
+
+// This middleware needs to be registered BEFORE app.router
+app.use(function(req, res, next) {
+  res.locals.aerobaticAppId = req.cookies.aerobaticAppId || "barnstormer-ui-angular";
+  next();
+});
+
 app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.locals.pretty = true;
-
-app.locals.aerobatic = {
-  appId: "barnstormer",
-  airportUrl: process.env.AEROBATIC_AIRPORT_URL || "http://localhost:3000"
-};
+// app.locals.airportUrl = process.env.AEROBATIC_AIRPORT_URL || "http://localhost:7777";
 
 app.locals({
+  aerobaticAirportUrl: process.env.AEROBATIC_AIRPORT_URL || "http://localhost:7777",
   urlify: function(s) {
     return s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   }

@@ -3,18 +3,18 @@ html
   head
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title= title
-    style
+    style.
       .aero-hide { display: none; }
       
     script.
       window.__config__ = {
         pageId: !{JSON.stringify(pageId)},
-        appId: !{JSON.stringify(aerobatic.appId)},
-        airportUrl: !{JSON.stringify(aerobatic.airportUrl)}
+        appId: !{JSON.stringify(aerobaticAppId)},
+        airportUrl: !{JSON.stringify(aerobaticAirportUrl)}
         //- Any other application specific config settings can be specified here.
       };
 
-    script(data-main="#{aerobatic.airportUrl}/cockpit", src="#{aerobatic.airportUrl}/require.js")
+    script(data-main="#{aerobaticAirportUrl}/cockpit", src="#{aerobaticAirportUrl}/require.js")
 
     block head
   body
