@@ -29,7 +29,18 @@ app.use(express.methodOverride());
 
 // This middleware needs to be registered BEFORE app.router
 app.use(function(req, res, next) {
-  res.locals.aerobaticAppId = req.cookies.aerobaticAppId || "barnstormer-ui-angular";
+  if (req.cookies.aerobaticApp) {
+    var app = req.cookies.aerobaticApp.aerobaticApp.split('/');
+    if (app.length == 2) {
+      res.locals.aerobaticAppOwner = app[0];
+      res.locals.aerobaticAppRepo =  app[1];
+    }
+  }
+  if (!res.locals.aerobaticAppOwner) {
+    res.locals.aerobaticAppOwner = "aerobatic";
+    res.locals.aerobaticAppRepo = "barnstormer-ui-angular";
+  }
+
   next();
 });
 
