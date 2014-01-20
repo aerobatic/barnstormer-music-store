@@ -5,12 +5,17 @@ var _ = require("lodash");
  */
 module.exports = function(echoNest) {
   return {
+    welcome: function(req, res, next) {
+      res.render("welcome", {
+        app: req.cookies.app
+      });
+    },  
     homePage: function(req, res, next){
       echoNest('artist/top_hottt').get({}, function (err, json) {
         if (err)
           return next(new Error("Error from echonest: " + JSON.stringify(err)));          
 
-        res.render('index', { 
+        res.render('home', { 
           title: 'Barnstormer Music Store', 
           pageId: "homePage",
           hotArtists: json.response.artists 

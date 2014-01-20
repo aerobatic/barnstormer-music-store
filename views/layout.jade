@@ -9,13 +9,13 @@ html
     script.
       window.__config__ = {
         pageId: !{JSON.stringify(pageId)},
-        aerobaticAppOwner: !{JSON.stringify(aerobaticAppOwner)},
-        aerobaticAppRepo: !{JSON.stringify(aerobaticAppRepo)},
+        aerobaticAppOwner: !{JSON.stringify(owner)},
+        aerobaticAppRepo: !{JSON.stringify(repo)},
         airportUrl: !{JSON.stringify(aerobaticAirportUrl)}
         //- Any other application specific config settings can be specified here.
       };
 
-    script(data-main="#{aerobaticAirportUrl}/cockpit", src="#{aerobaticAirportUrl}/require.js")
+    script(data-main="#{aerobaticAirportUrl}/cockpit", src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js")
 
     block head
   body

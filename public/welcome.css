@@ -1,0 +1,46 @@
+body {
+  padding-top: 20px;
+}
+
+.footer {
+  border-top: 1px solid #eee;
+  margin-top: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Main marketing message and sign up button */
+.hero {
+  background-color: transparent;
+  padding: 0;
+}
+.hero .btn {
+  font-size: 21px;
+  margin-top: 20px;
+  padding: 14px 24px;
+}
+
+.hero h1 {
+  font-family: 'Ceviche One', cursive;
+  font-size: 54px;
+}
+
+h2 {
+  font-family: 'Ceviche One', cursive;
+  font-size: 40px; 
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .masthead,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.panel {
+  margin-top: 25px;
+}

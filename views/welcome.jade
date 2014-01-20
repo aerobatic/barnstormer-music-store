@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Barnstorer Music - Official Aerobatic Sample App
+    link(type="text/css", rel="Stylesheet", href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css")
+    link(type='text/css', rel="Stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+    link(href='http://fonts.googleapis.com/css?family=Ceviche+One', rel='stylesheet')
+    link(type='text/css', rel="Stylesheet", href="welcome.css")
+  body
+    .container
+      .row.hero
+        .col-lg-4
+          img(src="barnstormer.jpg")
+        .col-lg-8
+          h1 Barnstormer Music
+          h3 The official sample app for Aerobatic - the platform that provides wings for nimble web apps
+          p
+            a.btn.btn-lg.btn-success(role="button", href="http://www.aerobaticapp.com") Learn More about Aerobatic
+          p.lead Select a user experience below or point to your own GitHub repo
+          
+      .row
+        .col-lg-4
+          h2 Angular/Bootstrap 3
+          p
+            a.btn.btn-primary(role="button", href="/home?host=aerobatic&repo=barnstormer-ui-angular") View
+            | &nbsp;&nbsp;
+            button.btn.btn-default(role="button", href="https://github.com/aerobatic/barnstormer-ui-angular/fork")
+              i.fa.fa-code-fork.fa-lg
+              |&nbsp;&nbsp;Fork
+
+        .col-lg-4
+          h2 Ember/Foundation
+          p.lead Coming Soon
+          p
+            button.btn.btn-primary(type="button", href="/home?host=aerobatic&repo=barnstormrer-ui-ember", disabled) View
+            | &nbsp;&nbsp;
+            button.btn.btn-default(type="button", href="https://github.com/aerobatic/barnstormer-ui-ember/fork", disabled)
+              i.fa.fa-code-fork.fa-lg
+              |&nbsp;&nbsp;Fork
+
+
+        .col-lg-4
+          h2 jQuery/jQueryUI
+          p.lead Coming Soon
+          p
+            button.btn.btn-primary(type="button", href="/home?host=aerobatic&repo=barnstormrer-ui-jquery", disabled) View
+            | &nbsp;&nbsp;
+            button.btn.btn-default(type="button", href="https://github.com/aerobatic/barnstormer-ui-jquery/fork", disabled)
+              i.fa.fa-code-fork.fa-lg
+              |&nbsp;&nbsp;Fork
+
+
+      .panel.panel-default
+        .panel-heading
+          h4
+            i.fa.fa-github.fa-lg  Use your own GitHub Repo 
+        .panel-body
+          p.lead Build a UI from scratch using the client libraries of your choice or fork one of the samples above. Just enter the URL of the repo below:
+
+
+
+      .footer
+        p &copy; AerobaticApp 2014

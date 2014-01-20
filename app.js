@@ -29,18 +29,25 @@ app.use(express.methodOverride());
 
 // This middleware needs to be registered BEFORE app.router
 app.use(function(req, res, next) {
-  if (req.cookies.aerobaticApp) {
-    var app = req.cookies.aerobaticApp.aerobaticApp.split('/');
-    if (app.length == 2) {
-      res.locals.aerobaticAppOwner = app[0];
-      res.locals.aerobaticAppRepo =  app[1];
-    }
+  var owner, repo;
+  if (req.query.owner && req.query.repo) {
+    res.cookie("owner", req.query.owner);
+    res.cookie("repo", req.query.repo);
+    
+    owner = req.query.owner;
+    repo = req.query.repo;
   }
-  if (!res.locals.aerobaticAppOwner) {
-    res.locals.aerobaticAppOwner = "aerobatic";
-    res.locals.aerobaticAppRepo = "barnstormer-ui-angular";
+  else if (req.cookies.owner && req.cookies.repo) {
+    owner = req.cookies.owner;
+    repo = req.cookies.repo;
+  }
+  else {
+    owner = "aerobatic";
+    repo = "barnstormer-ui-angular";
   }
 
+  res.locals.owner = owner;
+  res.locals.repo = repo;
   next();
 });
 
@@ -61,7 +68,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.homePage);
+app.get("/", routes.welcome);
+app.get('/home', routes.homePage);
 app.get('/artists/:name/:id', routes.artistDetail);
 
 http.createServer(app).listen(app.get('port'), function(){
