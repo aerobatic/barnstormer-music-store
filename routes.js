@@ -1,9 +1,45 @@
-var _ = require("lodash");
+var _ = require("lodash"),
+  request = require("request"),
+  querystring = require('querystring');
 
 /*
  * GET home page.
  */
 module.exports = function(echoNest) {
+  function lastFmApiCall(options, callback) {
+    _.defaults(options, { method: 'GET'});
+
+    var requestOpts = {
+      url: 'http://ws.audioscrobbler.com/2.0/',
+      method: options.method,
+      headers: {
+        'User-Agent': 'aerobatic'
+      },
+      qs: {
+        method: options.apiMethod,
+        api_key: process.env['LASTFM_API_KEY'],
+        format: 'json'
+      }
+    };
+
+    request(requestOpts, function(err, resp, body) {
+      console.log("LastFM api call to " + requestOpts.url + "?" + querystring.stringify(requestOpts.qs) + " returned status " + resp.statusCode);
+
+      if (err)
+        return callback(err);
+
+      var json;
+      try {
+        json = JSON.parse(body);
+      }
+      catch (e) {
+        err = new Error("Could not parse LastFM api response as JSON");
+      }
+     
+      callback(err, json);
+    });    
+  }
+
   return {
     welcome: function(req, res, next) {
       res.render("welcome", {
@@ -11,14 +47,14 @@ module.exports = function(echoNest) {
       });
     },  
     homePage: function(req, res, next){
-      echoNest('artist/top_hottt').get({}, function (err, json) {
+      lastFmApiCall({apiMethod: "chart.getTopArtists"}, function(err, data) {
         if (err)
-          return next(new Error("Error from echonest: " + JSON.stringify(err)));          
+          return next(err);
 
-        res.render('home', { 
-          title: 'Barnstormer Music Store', 
+        res.render("home", {
+          title: "Barnstormer Music Store",
           pageId: "homePage",
-          hotArtists: json.response.artists 
+          topArtists: data.artists.artist
         });
       });
     },

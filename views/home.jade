@@ -1,8 +1,10 @@
 extends layout
 
 block content
-  h3 Today's Hot Artists
+  h3 Chart Top Artists
   ul(data-hot-artists)
-    each artist in hotArtists
-      li
-        a(data-id=artist.id, href="/artists/" + urlify(artist.name) + "/" + artist.id) #{artist.name}
+    each artist in topArtists
+      li(data-artist)
+        a(data-artist-link href="/artists/" + encodeURIComponent(artist.name)) 
+          img(src=artist.image[3]['#text'], data-artist-image)
+          span(data-artist-title) #{artist.name}
