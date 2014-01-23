@@ -11,6 +11,10 @@ var express = require('express')
 
 var app = express();
 
+// var lastfm = lastfm({
+//   apiKey: process.env.LASTFM_API_KEY
+// });
+
 var echoNest = echojs({
   key: process.env.ECHONEST_API_KEY
 });
@@ -33,7 +37,7 @@ app.use(function(req, res, next) {
   if (req.query.owner && req.query.repo) {
     res.cookie("owner", req.query.owner);
     res.cookie("repo", req.query.repo);
-    
+
     owner = req.query.owner;
     repo = req.query.repo;
   }
