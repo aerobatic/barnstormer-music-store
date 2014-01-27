@@ -74,7 +74,7 @@ if ('development' == app.get('env')) {
 
 app.get("/", routes.welcome);
 app.get('/home', routes.homePage);
-app.get('/artists/:name/:id', routes.artistDetail);
+app.get('/artists/:artist', routes.artistDetail);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

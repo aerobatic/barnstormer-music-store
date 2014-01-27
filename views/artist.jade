@@ -1,17 +1,34 @@
 extends layout
 
 block content
-  h1 #{artist.name}
+  script.
+    var __artist__ = !{JSON.stringify(artist)};
 
-  h3 Reviews
-  ul(data-artist-reviews)
-    each review in artist.reviews
+  h1
+    a(href="#{artist.lastFmUrl}") #{artist.name}
+
+  div
+    img(src="#{artist.image}")
+
+  h3 Bio 
+  p !{artist.bio}
+
+  h3 Albums
+  ul
+    each album in artist.albums
       li
-        p #{review.summary}
-        a(href=review.url) #{review.summary}
+        a(href="#{album.lastFmUrl}")
+          img(src="#{album.image}")
+          span #{album.name}
 
-  h3 Images
-    ul(data-artist-images)
-      each image in artist.images
-        li
-          img(src=image.url)
+  ul Similar Artists 
+    each simArtist in artist.similar
+      li
+        a(href="#{simArtist.url}")
+          img(src="#{simArtist.image}")
+          span #{simArtist.name}
+
+  ul Tags 
+    each tag in artist.tags
+      li #{tag}
+  

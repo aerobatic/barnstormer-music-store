@@ -22,6 +22,9 @@ module.exports = function(echoNest) {
       }
     };
 
+    if (options.qs)
+      _.extend(requestOpts.qs, options.qs); 
+
     request(requestOpts, function(err, resp, body) {
       console.log("LastFM api call to " + requestOpts.url + "?" + querystring.stringify(requestOpts.qs) + " returned status " + resp.statusCode);
 
@@ -45,7 +48,8 @@ module.exports = function(echoNest) {
       res.render("welcome", {
         app: req.cookies.app
       });
-    },  
+    },
+
     homePage: function(req, res, next){
       lastFmApiCall({apiMethod: "chart.getTopArtists"}, function(err, data) {
         if (err)
@@ -58,21 +62,43 @@ module.exports = function(echoNest) {
         });
       });
     },
+
     artistDetail: function(req, res, next) {
-      var echoParams = {
-        "id": req.params.id,
-        "bucket": ["biographies", "blogs", "familiarity", "hotttnesss", "images", "news", "reviews", "urls", "terms", "video", "id:musicbrainz"]
-      };
-
-      echoNest('artist/profile').get(echoParams, function(err, json) {
+      lastFmApiCall({apiMethod: "artist.getInfo", qs:{artist: req.params.artist}}, function(err, info) {
         if (err)
-          return next("Error from echonest: " + JSON.stringify(err));
+          return next(err);
 
-        var artist = json.response.artist;
-        res.render('artist', {
-          title: 'Barnstormer Music - ' + artist.name,
-          pageId: 'artistDetail',
-          artist: artist
+        lastFmApiCall({apiMethod: "artist.gettopalbums", qs:{artist: req.params.artist}}, function(err, albums) {
+          if (err)
+            return next(err);
+
+          // Extract out just the attributes we care about from the LastFM response.
+          var artist = {
+            name: info.artist.name,
+            lastFmUrl: info.artist.url,
+            image: info.artist.image[4]['#text'],
+            bio: info.artist.bio.summary,
+            tags: _.map(info.artist.tags.tag, "name"),
+            similar: _.map(info.artist.similar.artist, function(sim) {
+              return {
+                name: sim.name,
+                url: '/artists/' + encodeURIComponent(sim.name),
+                image: sim.image[3]['#text']
+              }
+            }),
+            albums: _.map(albums.topalbums.album, function(album) {
+              return {
+                name: album.name,
+                lastFmUrl: album.url,
+                image: album.image[3]['#text']
+              }
+            })
+          };
+
+          res.render("artist", {
+            pageId: "artistDetail",
+            artist: artist
+          });  
         });
       });
     }
