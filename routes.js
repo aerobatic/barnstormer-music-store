@@ -23,7 +23,7 @@ module.exports = function(echoNest) {
     };
 
     if (options.qs)
-      _.extend(requestOpts.qs, options.qs); 
+      _.extend(requestOpts.qs, options.qs);
 
     request(requestOpts, function(err, resp, body) {
       console.log("LastFM api call to " + requestOpts.url + "?" + querystring.stringify(requestOpts.qs) + " returned status " + resp.statusCode);
@@ -38,9 +38,9 @@ module.exports = function(echoNest) {
       catch (e) {
         err = new Error("Could not parse LastFM api response as JSON");
       }
-     
+
       callback(err, json);
-    });    
+    });
   }
 
   return {
@@ -55,10 +55,18 @@ module.exports = function(echoNest) {
         if (err)
           return next(err);
 
+        topArtists = _.map(data.artists.artist, function(artist) {
+          return {
+            name: artist.name,
+            url: "/artists/" + encodeURIComponent(artist.name),
+            image: artist.image[3]['#text']
+          }
+        });
+
         res.render("home", {
           title: "Barnstormer Music Store",
           pageId: "homePage",
-          topArtists: data.artists.artist
+          topArtists: topArtists
         });
       });
     },
@@ -98,7 +106,7 @@ module.exports = function(echoNest) {
           res.render("artist", {
             pageId: "artistDetail",
             artist: artist
-          });  
+          });
         });
       });
     }

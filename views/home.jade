@@ -1,10 +1,14 @@
 extends layout
 
 block content
-  h3 Chart Top Artists
-  ul(data-hot-artists)
-    each artist in topArtists
-      li(data-artist)
-        a(data-artist-link, href="/artists/" + encodeURIComponent(artist.name))
-          img(src=artist.image[3]['#text'], data-artist-image)
-          span(data-artist-title) #{artist.name}
+  noscript
+    h3 Chart Top Artists
+    ul
+      each artist in topArtists
+        li
+          a(href="/artists/" + encodeURIComponent(artist.name))
+            img(src="#{artist.image}")
+            span #{artist.name}
+
+  script.
+    __topArtists__ = !{JSON.stringify(topArtists)}

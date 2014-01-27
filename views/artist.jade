@@ -1,34 +1,34 @@
 extends layout
 
 block content
+  noscript
+    h1
+      a(href="#{artist.lastFmUrl}") #{artist.name}
+
+    div
+      img(src="#{artist.image}")
+
+    h3 Bio
+    p !{artist.bio}
+
+    h3 Albums
+    ul
+      each album in artist.albums
+        li
+          a(href="#{album.lastFmUrl}")
+            img(src="#{album.image}")
+            span #{album.name}
+
+    ul Similar Artists
+      each simArtist in artist.similar
+        li
+          a(href="#{simArtist.url}")
+            img(src="#{simArtist.image}")
+            span #{simArtist.name}
+
+    ul Tags
+      each tag in artist.tags
+        li #{tag}
+
   script.
     var __artist__ = !{JSON.stringify(artist)};
-
-  h1
-    a(href="#{artist.lastFmUrl}") #{artist.name}
-
-  div
-    img(src="#{artist.image}")
-
-  h3 Bio 
-  p !{artist.bio}
-
-  h3 Albums
-  ul
-    each album in artist.albums
-      li
-        a(href="#{album.lastFmUrl}")
-          img(src="#{album.image}")
-          span #{album.name}
-
-  ul Similar Artists 
-    each simArtist in artist.similar
-      li
-        a(href="#{simArtist.url}")
-          img(src="#{simArtist.image}")
-          span #{simArtist.name}
-
-  ul Tags 
-    each tag in artist.tags
-      li #{tag}
-  
