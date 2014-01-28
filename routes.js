@@ -76,7 +76,7 @@ module.exports = function(echoNest) {
         if (err)
           return next(err);
 
-        lastFmApiCall({apiMethod: "artist.gettopalbums", qs:{artist: req.params.artist}}, function(err, albums) {
+        lastFmApiCall({apiMethod: "artist.gettopalbums", qs:{artist: req.params.artist, limit: 6}}, function(err, albums) {
           if (err)
             return next(err);
 
