@@ -62,6 +62,7 @@ app.locals.pretty = true;
 
 app.locals({
   aerobaticAirportUrl: process.env.AEROBATIC_AIRPORT_URL || "http://localhost:7777",
+  cockpitUrl: "//cdn.aerobaticapp.com/cockpit.min.js",
   urlify: function(s) {
     return s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   }
@@ -70,6 +71,7 @@ app.locals({
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
+  app.locals.cockpitUrl = app.locals.aerobaticAirportUrl + "/cockpit.js";
 }
 
 app.get("/", routes.welcome);
