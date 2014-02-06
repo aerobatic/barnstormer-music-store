@@ -55,22 +55,41 @@ html
 
       .panel.panel-default
         .panel-heading
-          h4
-            i.fa.fa-github.fa-lg  Use your own GitHub Repo 
+          i.fa.fa-github.fa-lg  Get Started Developing with Aerobatic
         .panel-body
-          p.lead Build a UI from scratch using the client libraries of your choice or fork one of the samples above. Just enter the URL of the repo below:
-          form.form-inline(role="form", method="get", action="/home")
-            .form-group
-              input.form-control(type="text", name="owner", placeholder="GitHub User or Org")
-            .form-group
-              input.form-control(type="text", name="repo", placeholder="Repository name")
-            .form-group
-              button.btn.btn-primary(type="submit") Go
-            
-            span.help-block
-              span Dashboard URL:
-              |&nbsp;&nbsp;
-              strong http://airport.aerobaticapp.com/{owner}/{repo}
+          p The easiest way to get started with Aerobatic is to create your own UX layer for this sample app. Before you get started, make sure you have Aerobatic installed:
+
+          div.console &gt; npm install -g aerobatic
+
+          br
+          .well
+            ol
+              li
+                h5 Fork one of the repos below and clone it locally
+              li
+                h5 Visit your Aerobatic dashboard
+                form.form-inline(role="form", method="get", action="/home")
+                  .form-group
+                    input.form-control(type="text", name="owner", placeholder="GitHub user/org")
+                  .form-group
+                    input.form-control(type="text", name="repo", placeholder="Forked repository")
+                  .form-group
+                    button.btn.btn-primary(type="submit") Visit Dashboard
+                
+              li
+                h5 Toggle simulator mode on
+              li
+                h5 Make local code changes
+              li
+                h5 Refresh www.barnstormermusic.biz/home?owner=[your_github_user]&amp;repo=[forked_repo_name] to see your changes
+              li
+                h5 Commit your changes to GitHub
+              li
+                h5 Return to your dashboard and play around with the traffic control rules
+              li
+                h5 Toggle simulator mode off to see the site as the internet sees it
+              li
+                h5 Repeat steps 3-8
 
       .footer
         p &copy; AerobaticApp 2014
