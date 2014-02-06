@@ -12,6 +12,7 @@
     "echojs": "~0.1.4",
     "underscore.string": "~2.3.3",
     "lodash": "~2.3.0",
-    "request": "~2.33.0"
+    "request": "~2.33.0",
+    "lru-cache": "~2.5.0"
   }
 }

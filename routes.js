@@ -1,11 +1,14 @@
 var _ = require("lodash"),
   request = require("request"),
-  querystring = require('querystring');
+  querystring = require('querystring'),
+  LRU = require("lru-cache");
 
 /*
  * GET home page.
  */
-module.exports = function(echoNest) {
+module.exports = function() {
+  var apiCache = LRU({ max: 50, maxAge: 1000 * 60 * 60 });
+
   function lastFmApiCall(options, callback) {
     _.defaults(options, { method: 'GET'});
 
@@ -51,6 +54,20 @@ module.exports = function(echoNest) {
     },
 
     homePage: function(req, res, next){
+      var topArtists;
+
+      var render = function() {
+        res.render("home", {
+          title: "Barnstormer Music Store",
+          pageId: "homePage",
+          topArtists: topArtists
+        });        
+      }
+
+      topArtists = apiCache.get("lastFm.topArtists");
+      if (topArtists)
+        return render();
+
       lastFmApiCall({apiMethod: "chart.getTopArtists"}, function(err, data) {
         if (err)
           return next(err);
@@ -63,15 +80,27 @@ module.exports = function(echoNest) {
           }
         });
 
-        res.render("home", {
-          title: "Barnstormer Music Store",
-          pageId: "homePage",
-          topArtists: topArtists
-        });
+        apiCache.set("lastFm.topArtists", topArtists);
+        render();
       });
     },
 
     artistDetail: function(req, res, next) {
+      var artistDetail = null;
+
+      var render = function() {
+        res.render("artist", {
+          pageId: "artistDetail",
+          artist: artistDetail
+        });
+      };
+
+      var cacheKey = "lastFm.artist." + req.params.artist.toLowerCase();
+
+      artistDetail = apiCache.get(cacheKey);
+      if (artistDetail) 
+        return render();
+
       lastFmApiCall({apiMethod: "artist.getInfo", qs:{artist: req.params.artist}}, function(err, info) {
         if (err)
           return next(err);
@@ -81,7 +110,7 @@ module.exports = function(echoNest) {
             return next(err);
 
           // Extract out just the attributes we care about from the LastFM response.
-          var artist = {
+          artistDetail = {
             name: info.artist.name,
             lastFmUrl: info.artist.url,
             image: info.artist.image[4]['#text'],
@@ -103,10 +132,8 @@ module.exports = function(echoNest) {
             })
           };
 
-          res.render("artist", {
-            pageId: "artistDetail",
-            artist: artist
-          });
+          apiCache.set(cacheKey, artistDetail);
+          render();
         });
       });
     }
