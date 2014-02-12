@@ -61,7 +61,7 @@ module.exports = function() {
           title: "Barnstormer Music Store",
           pageId: "homePage",
           topArtists: topArtists
-        });        
+        });
       }
 
       topArtists = apiCache.get("lastFm.topArtists");
@@ -98,7 +98,7 @@ module.exports = function() {
       var cacheKey = "lastFm.artist." + req.params.artist.toLowerCase();
 
       artistDetail = apiCache.get(cacheKey);
-      if (artistDetail) 
+      if (artistDetail)
         return render();
 
       lastFmApiCall({apiMethod: "artist.getInfo", qs:{artist: req.params.artist}}, function(err, info) {
@@ -123,14 +123,21 @@ module.exports = function() {
                 image: sim.image[3]['#text']
               }
             }),
-            albums: _.map(albums.topalbums.album, function(album) {
-              return {
-                name: album.name,
-                lastFmUrl: album.url,
-                image: album.image[3]['#text']
-              }
-            })
           };
+
+          if (_.isArray(albums.topalbums.album))
+            topAlbums = albums.topalbums.album;
+          else
+            topAlbums = [albums.topalbums.album];
+
+          artistDetail.albums = _.map(topAlbums, function(album) {
+            console.log("album: " + JSON.stringify(album));
+            return {
+              name: album.name,
+              lastFmUrl: album.url,
+              image: _.find(album.image, {size: 'large'})['#text']
+            }
+          });
 
           apiCache.set(cacheKey, artistDetail);
           render();
