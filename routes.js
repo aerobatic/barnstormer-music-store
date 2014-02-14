@@ -131,7 +131,6 @@ module.exports = function() {
             topAlbums = [albums.topalbums.album];
 
           artistDetail.albums = _.map(topAlbums, function(album) {
-            console.log("album: " + JSON.stringify(album));
             return {
               name: album.name,
               lastFmUrl: album.url,
